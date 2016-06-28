@@ -5,12 +5,9 @@ import com.cgi.sandbox.pojo.Person;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collector;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * Created by galloisg on 28/06/2016.
- */
 public class LambdasAndSreams {
 
     // test from https://www.javacodegeeks.com/2014/05/java-8-features-tutorial.html,
@@ -50,6 +47,26 @@ public class LambdasAndSreams {
         List<String> lp2 = persons.stream().map(Person::pettyDisplayS).collect(Collectors.toList());
         System.out.println(lp); // [keuss, steve]
         System.out.println(lp2); // [G, keuss, J, steve]
+
+
+        System.out.println("\n#### OTHERS STREAMS TEST ####");
+        final List<Optional<Person>> personsOption = Arrays.asList(Optional.of(new Person("keuss", "g")),
+                Optional.of(new Person("steve", "j")), Optional.empty());
+
+       persons
+            .stream()
+            .map(v -> v.getFirstName().toUpperCase())
+            .sorted((a, b) -> b.compareTo(a))
+            .forEach(System.out::println);
+        //STEVE
+        //KEUSS
+
+        personsOption
+            .stream()
+            .filter(Optional::isPresent)
+            .forEach(v -> System.out.println(v.get().getFirstName()));
+        //keuss
+        //steve
 
     }
 

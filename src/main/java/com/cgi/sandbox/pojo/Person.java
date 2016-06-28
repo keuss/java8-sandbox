@@ -3,8 +3,8 @@ package com.cgi.sandbox.pojo;
 import java.util.function.Supplier;
 
 public class Person {
-    private String firstName;
-    private String lastName;
+    private String firstName = "";
+    private String lastName = "";
 
     public Person() {}
 
