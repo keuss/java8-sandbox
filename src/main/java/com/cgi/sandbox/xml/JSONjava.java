@@ -70,13 +70,32 @@ public class JSONjava {
             "    <phone-number type=\"cell\">555-2222</phone-number>\n" +
             "</customer>";
 
+    public static String CASE_XML_TEST = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+            "<bdstests:HARMONIE_EERPROElement xmlns:bdstests=\"http://harmonie.socgen.com/bdstests\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"bdstests:HARMONIE_EERPRO\">\n" +
+            "   <cid>1816</cid>\n" +
+            "   <comptes xsi:type=\"bdstests:EERPRO_ACCOUNT\">\n" +
+            "      <numrodecompte>6816ez81r6z1e8</numrodecompte>\n" +
+            "      <montantduversement>15050.0</montantduversement>\n" +
+            "   </comptes>\n" +
+            "   <comptes xsi:type=\"bdstests:EERPRO_ACCOUNT\">\n" +
+            "      <numrodecompte>6816ez81r6z1e8</numrodecompte>\n" +
+            "      <montantduversement>1500.0</montantduversement>\n" +
+            "   </comptes>\n" +
+            "</bdstests:HARMONIE_EERPROElement>";
+
 
     public static void main(String[] args) {
         try {
-            //System.out.println(removeXmlStringNamespaceAndPreamble(TEST_TIBCO_STRING));
-            JSONObject xmlJSONObj = XML.toJSONObject(TEST_TIBCO_STRING);
+            System.out.println(CASE_XML_TEST);
+            // XML -> JSON
+            JSONObject xmlJSONObj = XML.toJSONObject(CASE_XML_TEST);
             String jsonPrettyPrintString = xmlJSONObj.toString(PRETTY_PRINT_INDENT_FACTOR);
             System.out.println(jsonPrettyPrintString);
+
+            // JSON -> XML
+            JSONObject json = new JSONObject(jsonPrettyPrintString);
+            String xml = XML.toString(json);
+            System.out.println(xml);
         } catch (JSONException je) {
             System.out.println(je.toString());
         }

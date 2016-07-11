@@ -39,7 +39,7 @@ Maintenu par Sean Leary (Cisco Systems, Inc)
 	    <version>20160212</version>
 	</dependency>
 
-## Test
+## Test 1
 
 	<?xml version="1.0"?>
 	<customer>
@@ -52,7 +52,7 @@ Maintenu par Sean Leary (Cisco Systems, Inc)
 	    <phone-number type="cell">555-2222</phone-number>
 	</customer>
 
-## Result
+## Result 1
 
 	{
 		"customer": {
@@ -71,7 +71,7 @@ Maintenu par Sean Leary (Cisco Systems, Inc)
 		}
 	}
 
-## Test
+## Test 2
 
 	<xml-fragment>
 	   <proc:basicProcessTemplate xmlns:proc="http://www.tibco.com/bx/2009/management/processManagerType">
@@ -94,7 +94,7 @@ Maintenu par Sean Leary (Cisco Systems, Inc)
 	   </proc:basicProcessTemplate>
 	</xml-fragment>
 
-# Result
+## Result 2
 
 	{
 		"xml-fragment": {
@@ -125,6 +125,43 @@ Maintenu par Sean Leary (Cisco Systems, Inc)
 		}
 	}
 
+## Test 3
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<bdstests:HARMONIE_EERPROElement xmlns:bdstests="http://harmonie.socgen.com/bdstests" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bdstests:HARMONIE_EERPRO">
+	   <cid>1816</cid>
+	   <comptes xsi:type="bdstests:EERPRO_ACCOUNT">
+	      <numrodecompte>6816ez81r6z1e8</numrodecompte>
+	      <montantduversement>15050.0</montantduversement>
+	   </comptes>
+	   <comptes xsi:type="bdstests:EERPRO_ACCOUNT">
+	      <numrodecompte>6816ez81r6z1e8</numrodecompte>
+	      <montantduversement>1500.0</montantduversement>
+	   </comptes>
+	</bdstests:HARMONIE_EERPROElement>
+
+## Result 3
+
+	{
+		"bdstests:HARMONIE_EERPROElement": {
+			"comptes": [{
+				"montantduversement": 15050,
+				"xsi:type": "bdstests:EERPRO_ACCOUNT",
+				"numrodecompte": "6816ez81r6z1e8"
+			}, {
+				"montantduversement": 1500,
+				"xsi:type": "bdstests:EERPRO_ACCOUNT",
+				"numrodecompte": "6816ez81r6z1e8"
+			}],
+			"xsi:type": "bdstests:HARMONIE_EERPRO",
+			"xmlns:bdstests": "http://harmonie.socgen.com/bdstests",
+			"xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+			"cid": 1816
+	}
+
+## Json to xml (with namespaces)
+
+**KO**
 
 ----------
 
@@ -250,7 +287,7 @@ Maintenu par Christoph Beck (?)
 	    <version>1.3</version>
     </dependency>
 
-## Test
+## Test 1
 
 	<?xml version="1.0"?>
 	<customer>
@@ -263,7 +300,7 @@ Maintenu par Christoph Beck (?)
 	    <phone-number type="cell">555-2222</phone-number>
 	</customer>
 
-## Result
+## Result 1
 
 	{
 		"customer": {
@@ -283,7 +320,7 @@ Maintenu par Christoph Beck (?)
 	}
 
 
-## Test
+## Test 2
 
 	<xml-fragment>
 	   <proc:basicProcessTemplate xmlns:proc="http://www.tibco.com/bx/2009/management/processManagerType">
@@ -306,7 +343,7 @@ Maintenu par Christoph Beck (?)
 	   </proc:basicProcessTemplate>
 	</xml-fragment>
 
-## Result
+## Result 2
 
 	{
 		"xml-fragment": {
@@ -337,6 +374,63 @@ Maintenu par Christoph Beck (?)
 		}
 	}
 
+## Test 3
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<bdstests:HARMONIE_EERPROElement xmlns:bdstests="http://harmonie.socgen.com/bdstests" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bdstests:HARMONIE_EERPRO">
+	   <cid>1816</cid>
+	   <comptes xsi:type="bdstests:EERPRO_ACCOUNT">
+	      <numrodecompte>6816ez81r6z1e8</numrodecompte>
+	      <montantduversement>15050.0</montantduversement>
+	   </comptes>
+	   <comptes xsi:type="bdstests:EERPRO_ACCOUNT">
+	      <numrodecompte>6816ez81r6z1e8</numrodecompte>
+	      <montantduversement>1500.0</montantduversement>
+	   </comptes>
+	</bdstests:HARMONIE_EERPROElement>
+
+## Result 3
+
+	{
+		"bdstests:HARMONIE_EERPROElement": {
+			"@xmlns:bdstests": "http://harmonie.socgen.com/bdstests",
+			"@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+			"@xsi:type": "bdstests:HARMONIE_EERPRO",
+			"cid": "1816",
+			"comptes": [{
+				"@xsi:type": "bdstests:EERPRO_ACCOUNT",
+				"numrodecompte": "6816ez81r6z1e8",
+				"montantduversement": "15050.0"
+			}, {
+				"@xsi:type": "bdstests:EERPRO_ACCOUNT",
+				"numrodecompte": "6816ez81r6z1e8",
+				"montantduversement": "1500.0"
+			}]
+		}
+	}
+
+## Json to xml (with namespaces)
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<bdstests:HARMONIE_EERPROElement xmlns:bdstests="http://harmonie.socgen.com/bdstests" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bdstests:HARMONIE_EERPRO">
+	   <cid>1816</cid>
+	   <comptes xsi:type="bdstests:EERPRO_ACCOUNT">
+	      <numrodecompte>6816ez81r6z1e8</numrodecompte>
+	      <montantduversement>15050.0</montantduversement>
+	   </comptes>
+	   <comptes xsi:type="bdstests:EERPRO_ACCOUNT">
+	      <numrodecompte>6816ez81r6z1e8</numrodecompte>
+	      <montantduversement>1500.0</montantduversement>
+	   </comptes>
+	</bdstests:HARMONIE_EERPROElement>
+
+----------
+
+# Transformed XML
+
+[http://www.freeformatter.com/xsl-transformer.html](http://www.freeformatter.com/xsl-transformer.html "http://www.freeformatter.com/xsl-transformer.html")
+
+
 ## Remove namespaces with XSLT
 
 	<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
@@ -353,13 +447,7 @@ Maintenu par Christoph Beck (?)
 	    </xsl:template>
 	</xsl:stylesheet>
 
-----------
-
-# Transformed XML
-
-[http://www.freeformatter.com/xsl-transformer.html](http://www.freeformatter.com/xsl-transformer.html "http://www.freeformatter.com/xsl-transformer.html")
-
-## Test
+## Test 1
 
 **Avec plusieurs namepaces :**
 
@@ -392,7 +480,7 @@ Maintenu par Christoph Beck (?)
 	        </p:CustomerDetails>
 	</p:Purchase>
 
-## Result
+## Result 1
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<!-- Created with Liquid XML Studio 0.9.8.0 (http://www.liquid-technologies.com) -->
@@ -418,7 +506,7 @@ Maintenu par Christoph Beck (?)
 	   </CustomerDetails>
 	</Purchase>
 
-## Links
+# Links
 
  - [https://community.apigee.com/articles/1839/converting-between-xml-and-json-what-you-need-to-k.html](https://community.apigee.com/articles/1839/converting-between-xml-and-json-what-you-need-to-k.html "https://community.apigee.com/articles/1839/converting-between-xml-and-json-what-you-need-to-k.html")
  - [http://www.freeformatter.com/xsl-transformer.html](http://www.freeformatter.com/xsl-transformer.html "http://www.freeformatter.com/xsl-transformer.html")

@@ -2,7 +2,9 @@ package com.cgi.sandbox.xml;
 
 import de.odysseus.staxon.json.JsonXMLConfig;
 import de.odysseus.staxon.json.JsonXMLConfigBuilder;
+import de.odysseus.staxon.json.JsonXMLInputFactory;
 import de.odysseus.staxon.json.JsonXMLOutputFactory;
+import de.odysseus.staxon.xml.util.PrettyXMLEventWriter;
 
 import javax.xml.stream.*;
 import javax.xml.transform.TransformerFactoryConfigurationError;
@@ -71,13 +73,26 @@ public class Staxon {
             "   </proc:basicProcessTemplate>\n" +
             "</xml-fragment>";
 
+    public static String CASE_XML_TEST = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+            "<bdstests:HARMONIE_EERPROElement xmlns:bdstests=\"http://harmonie.socgen.com/bdstests\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"bdstests:HARMONIE_EERPRO\">\n" +
+            "   <cid>1816</cid>\n" +
+            "   <comptes xsi:type=\"bdstests:EERPRO_ACCOUNT\">\n" +
+            "      <numrodecompte>6816ez81r6z1e8</numrodecompte>\n" +
+            "      <montantduversement>15050.0</montantduversement>\n" +
+            "   </comptes>\n" +
+            "   <comptes xsi:type=\"bdstests:EERPRO_ACCOUNT\">\n" +
+            "      <numrodecompte>6816ez81r6z1e8</numrodecompte>\n" +
+            "      <montantduversement>1500.0</montantduversement>\n" +
+            "   </comptes>\n" +
+            "</bdstests:HARMONIE_EERPROElement>";
+
     public static String convertToJson(String xml_data, PrintWriter out) {
         // Conversion based on https://github.com/beckchr/staxon/wiki/Converting-XML-to-JSON
-    /*
-     * If we want to insert JSON array boundaries for multiple elements, we need to set the <code>autoArray</code>
-	 * property. If our XML source was decorated with <code>&lt;?xml-multiple?&gt;</code> processing instructions,
-	 * we'd set the <code>multiplePI</code> property instead.
-	 */
+        /*
+        * If we want to insert JSON array boundaries for multiple elements, we need to set the <code>autoArray</code>
+        * property. If our XML source was decorated with <code>&lt;?xml-multiple?&gt;</code> processing instructions,
+        * we'd set the <code>multiplePI</code> property instead.
+        */
         JsonXMLConfig config = new JsonXMLConfigBuilder().autoArray(true).prettyPrint(true).namespaceDeclarations(true).build();
         InputStream input = null;
         OutputStream output = null;
@@ -85,24 +100,24 @@ public class Staxon {
         try {
             input = new ByteArrayInputStream(xml_data.getBytes("UTF-8"));
             output = new ByteArrayOutputStream();
-		/*
-		 * Create reader (XML).
-		 */
+            /*
+             * Create reader (XML).
+             */
             XMLEventReader reader = XMLInputFactory.newInstance().createXMLEventReader(input);
 
-		/*
-		 * Create writer (JSON).
-		 */
+            /*
+             * Create writer (JSON).
+             */
             XMLEventWriter writer = new JsonXMLOutputFactory(config).createXMLEventWriter(output);
 
-		/*
-		 * Copy events from reader to writer.
-		 */
+            /*
+             * Copy events from reader to writer.
+             */
             writer.add(reader);
 
-		/*
-		 * Close reader/writer.
-		 */
+            /*
+             * Close reader/writer.
+             */
             reader.close();
             writer.close();
             ret = output.toString();
@@ -118,9 +133,75 @@ public class Staxon {
             out.print("<font color='red'>Transformer factory configuration error during conversion: XML to JSON.</font>");
             tfe.printStackTrace();
         } finally {
-		/*
-		 * As per StAX specification, XMLEventReader/Writer.close() doesn't close the underlying stream.
-		 */
+            /*
+             * As per StAX specification, XMLEventReader/Writer.close() doesn't close the underlying stream.
+             */
+            if (output != null)
+                try {
+                    output.close();
+                } catch (IOException e) {
+                }
+            if (input != null)
+                try {
+                    input.close();
+                } catch (IOException e) {
+                }
+        }
+        return ret;
+    }
+
+    public static String convertToXml(String json_data, PrintWriter out) {
+        // Conversion based on https://github.com/beckchr/staxon/wiki/Converting-XML-to-JSON
+        /*
+        * If the <code>multiplePI</code> property is set to <code>true</code>, the StAXON reader will generate
+        * <code><xml-multiple></code> processing instructions which would be copied to the XML output. These can
+        * be used by StAXON when converting back to JSON to trigger array starts. Set to <code>false</code> if you
+        * don't need to go back to JSON.
+        */
+        JsonXMLConfig config = new JsonXMLConfigBuilder().multiplePI(false).build();
+        InputStream input = null;
+        OutputStream output = null;
+        String ret = "error";
+        try {
+            input = new ByteArrayInputStream(json_data.getBytes("UTF-8"));
+            output = new ByteArrayOutputStream();
+           /*
+            * Create reader (JSON).
+            */
+            XMLEventReader reader = new JsonXMLInputFactory(config).createXMLEventReader(input);
+
+           /*
+            * Create writer (XML).
+            */
+            XMLEventWriter writer = XMLOutputFactory.newInstance().createXMLEventWriter(output);
+            writer = new PrettyXMLEventWriter(writer); // format output
+
+           /*
+            * Copy events from reader to writer.
+            */
+            writer.add(reader);
+
+           /*
+            * Close reader/writer.
+            */
+            reader.close();
+            writer.close();
+            ret = output.toString();
+        } catch (UnsupportedEncodingException ue) {
+            out.print("<font color='red'>Unsupported encoding during conversion: JSON to XML.</font>");
+        } catch (XMLStreamException se) {
+            out.print("<font color='red'>XML Stream exception during conversion: JSON to XML.</font>");
+            se.printStackTrace();
+        } catch (FactoryConfigurationError fe) {
+            out.print("<font color='red'>Factory configuration error during conversion: JSON to XML.</font>");
+            fe.printStackTrace();
+        } catch (TransformerFactoryConfigurationError tfe) {
+            out.print("<font color='red'>Transformer factory configuration error during conversion: JSON to XML.</font>");
+            tfe.printStackTrace();
+        } finally {
+           /*
+            * As per StAX specification, XMLEventReader/Writer.close() doesn't close the underlying stream.
+            */
             if (output != null)
                 try {
                     output.close();
@@ -136,9 +217,10 @@ public class Staxon {
     }
 
     public static void main(String[] args) {
-        PrintWriter pw = new PrintWriter(System.out, true);
-        System.out.println(convertToJson(TEST_TIBCO_STRING, pw));
-
+        String json = convertToJson(CASE_XML_TEST, new PrintWriter(System.err));
+        System.out.println(json);
+        String xml = convertToXml(json, new PrintWriter(System.err));
+        System.out.println(xml);
     }
 
 }
