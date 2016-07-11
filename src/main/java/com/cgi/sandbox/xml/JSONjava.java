@@ -1,8 +1,13 @@
 package com.cgi.sandbox.xml;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
+
+import java.io.InputStream;
+import java.net.URL;
 
 /**
  * Created by galloisg on 08/07/2016.
@@ -64,13 +69,6 @@ public class JSONjava {
             "    <phone-number type=\"work\">555-1111</phone-number>\n" +
             "    <phone-number type=\"cell\">555-2222</phone-number>\n" +
             "</customer>";
-
-    public static String removeXmlStringNamespaceAndPreamble(String xmlString) {
-        return xmlString.replaceAll("(<\\?[^<]*\\?>)?", ""). /* remove preamble */
-                replaceAll("xmlns.*?(\"|\').*?(\"|\')", "") /* remove xmlns declaration */
-                .replaceAll("(<)(\\w+:)(.*?>)", "$1$3") /* remove opening tag prefix */
-                .replaceAll("(</)(\\w+:)(.*?>)", "$1$3"); /* remove closing tags prefix */
-    }
 
 
     public static void main(String[] args) {
