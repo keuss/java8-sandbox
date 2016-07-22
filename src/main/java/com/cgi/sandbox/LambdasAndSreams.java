@@ -10,6 +10,7 @@ public class LambdasAndSreams {
     // test from https://www.javacodegeeks.com/2014/05/java-8-features-tutorial.html,
     // http://winterbe.com/posts/2014/03/16/java-8-tutorial/
     // and http://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/
+    // API doc : http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html
 
     public static void main(String[] args) {
         System.out.println("#### LAMBDAS TEST ####");
@@ -71,6 +72,38 @@ public class LambdasAndSreams {
 
         List<Person> pResultList = p1List.stream().filter(c -> p2List.contains(c)).collect(Collectors.toList());
         System.out.println(pResultList.size() + "->" + pResultList.get(0));
+
+
+        System.out.println("\n#### INTERSECTION LIST OTHER TEST ####");
+        List<Person> pResultList2 = p1List
+                .stream()
+                .map(pers1 -> p2List
+                                .stream()
+                                .filter(pers2 -> pers2.getFirstName().equals(pers1.getFirstName()))
+                                .findFirst()
+                 )
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+
+        pResultList2.forEach(System.out::println);
+
+        System.out.println("\n#### INTERSECTION LIST OTHER WEIRD TEST ####");
+        p1List
+                .parallelStream()
+                .map(pers1 -> {
+                    Optional<Person> pMatch = p2List
+                            .stream()
+                            .filter(pers2 -> pers2.getFirstName().equals(pers1.getFirstName()))
+                            .findFirst();
+                    if (pMatch.isPresent())
+                        // here can mix object creation
+                        return new Person(pers1.getFirstName(), pMatch.get().getLastName());
+                    else
+                        return null;
+                })
+                .filter(Objects::nonNull)
+                .forEach(Person::print);
 
 
     }
