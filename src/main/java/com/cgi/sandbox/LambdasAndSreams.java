@@ -2,10 +2,7 @@ package com.cgi.sandbox;
 
 import com.cgi.sandbox.pojo.Person;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class LambdasAndSreams {
@@ -67,6 +64,14 @@ public class LambdasAndSreams {
             .forEach(v -> System.out.println(v.get().getFirstName()));
         //keuss
         //steve
+
+        System.out.println("\n#### SIMPLE INTERSECTION LIST TEST ####");
+        List<Person> p1List = new ArrayList<>(Arrays.asList(new Person("keuss", "g"), new Person("july", "d"), new Person("steve", "j")));
+        List<Person> p2List = new ArrayList<>(Arrays.asList(new Person("Dakeuss", "g"), new Person("july", "m"), new Person("steve", "j")));
+
+        List<Person> pResultList = p1List.stream().filter(c -> p2List.contains(c)).collect(Collectors.toList());
+        System.out.println(pResultList.size() + "->" + pResultList.get(0));
+
 
     }
 
