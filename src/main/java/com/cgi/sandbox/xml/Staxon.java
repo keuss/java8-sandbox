@@ -86,6 +86,29 @@ public class Staxon {
             "   </comptes>\n" +
             "</bdstests:HARMONIE_EERPROElement>";
 
+    public static String CASE_CREATE_TEST = "<?xml version=\"1.0\"?>\n" +
+            "<CaseRequest>\n" +
+            "  <description>string</description>\n" +
+            "  <caseBusinessRef>string</caseBusinessRef>\n" +
+            "  <state>string</state>\n" +
+            "  <status>string</status>\n" +
+            "  <initiatorType>string</initiatorType>\n" +
+            "  <contextList>\n" +
+            "    <name>string1</name>\n" +
+            "    <value>string1</value>\n" +
+            "  </contextList>\n" +
+            "  <contextList>\n" +
+            "    <name>string2</name>\n" +
+            "    <value>string2</value>\n" +
+            "  </contextList>\n" +
+            "  <initiatorName>string</initiatorName>\n" +
+            "  <acquisitionChannel>string</acquisitionChannel>\n" +
+            "  <priority>1</priority>\n" +
+            "  <managingAgency>string</managingAgency>\n" +
+            "  <managingCu>1</managingCu>\n" +
+            "  <isConfidential>true</isConfidential>\n" +
+            "</CaseRequest>";
+
     public static String convertToJson(String xml_data, PrintWriter out) {
         // Conversion based on https://github.com/beckchr/staxon/wiki/Converting-XML-to-JSON
         /*
@@ -217,7 +240,7 @@ public class Staxon {
     }
 
     public static void main(String[] args) {
-        String json = convertToJson(CASE_XML_TEST, new PrintWriter(System.err));
+        String json = convertToJson(CASE_CREATE_TEST, new PrintWriter(System.err));
         System.out.println(json);
         String xml = convertToXml(json, new PrintWriter(System.err));
         System.out.println(xml);
