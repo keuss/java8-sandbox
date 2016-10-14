@@ -3,6 +3,7 @@ package com.cgi.sandbox;
 import com.cgi.sandbox.pojo.Person;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class LambdasAndSreams {
@@ -15,6 +16,11 @@ public class LambdasAndSreams {
 
     public static void main(String[] args) {
         System.out.println("#### LAMBDAS TEST ####");
+
+        // dummy test reduce
+        List<String> lr = Arrays.asList("toto-titi-tata".split("-"));
+        System.out.println(lr.stream().limit(lr.size()-1).reduce((acc, v) -> acc + "-" + v ).get());
+
 
         Arrays.asList("a", "b", "d").forEach(e -> System.out.println(e));
 
@@ -60,18 +66,18 @@ public class LambdasAndSreams {
         final List<Optional<Person>> personsOption = Arrays.asList(Optional.of(new Person("keuss", "g")),
                 Optional.of(new Person("steve", "j")), Optional.empty());
 
-       persons
-            .stream()
-            .map(v -> v.getFirstName().toUpperCase())
-            .sorted((a, b) -> b.compareTo(a))
-            .forEach(System.out::println);
+        persons
+                .stream()
+                .map(v -> v.getFirstName().toUpperCase())
+                .sorted((a, b) -> b.compareTo(a))
+                .forEach(System.out::println);
         //STEVE
         //KEUSS
 
         personsOption
-            .stream()
-            .filter(Optional::isPresent)
-            .forEach(v -> System.out.println(v.get().getFirstName()));
+                .stream()
+                .filter(Optional::isPresent)
+                .forEach(v -> System.out.println(v.get().getFirstName()));
         //keuss
         //steve
 
@@ -153,6 +159,23 @@ public class LambdasAndSreams {
                 })
                 .filter(Objects::nonNull)
                 .forEach(Person::print);
+
+        /*
+        Consumer<T> : opération qui accepte un unique argument (type T) et ne retourne pas de résultat.
+            void accept(T);
+        Function<T,R> : opération qui accepte un argument (type T) et retourne un résultat (type R).
+            R apply(T);
+        Supplier<T> : opération qui ne prend pas d’argument et qui retourne un résultat (type T).
+            T get();
+         */
+        Function<String, String> modifier = (v) -> {
+            if(v != null)
+                return v.toUpperCase();
+            else
+                return "vide";
+        };
+
+        Arrays.asList("a", "b", "d").stream().map(modifier).forEach(System.out::println);
 
 
     }

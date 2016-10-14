@@ -8,6 +8,7 @@ import java.util.List;
 public class Basics {
 
     // Some examples taken from : http://winterbe.com/posts/2014/03/16/java-8-tutorial/
+    // and http://blog.ippon.fr/2014/03/18/java-8-interfaces-fonctionnelles/
 
     public static void main(String[] args) {
         System.out.println("#### Functional Interfaces ####");
@@ -36,5 +37,6 @@ public class Basics {
         // Class::new
         final Person p2 = Person.create(Person::new);
         System.out.println(p2);
+
     }
 }
