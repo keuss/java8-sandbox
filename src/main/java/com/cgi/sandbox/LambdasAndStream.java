@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class LambdasAndSreams {
+public class LambdasAndStream {
 
     // test from https://www.javacodegeeks.com/2014/05/java-8-features-tutorial.html,
     // http://winterbe.com/posts/2014/03/16/java-8-tutorial/
