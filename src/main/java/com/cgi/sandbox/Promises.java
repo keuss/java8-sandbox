@@ -23,7 +23,7 @@ public class Promises {
                 throw new IllegalStateException("task interrupted", e);
             }
             if (param == null)
-                throw new RuntimeException("Promise rejected !");
+                throw new IllegalArgumentException("Promise rejected !");
             return "Promise" + param;
         });
     }
