@@ -65,8 +65,23 @@ public class Concurrency {
         return "#################### OK " + text;
     }
 
+    public static void longRunningTaskAsync(String text) {
+        CompletableFuture.runAsync(() -> {
+            //...long running...
+            try {
+                TimeUnit.SECONDS.sleep(8);
+            } catch (InterruptedException e) {
+                throw new IllegalStateException("task interrupted", e);
+            }
+            System.out.println(text);
+        });
+    }
+
     public static void main(String[] args) {
         System.out.println("#### CONCURRENCY TEST ####");
+
+        longRunningTaskAsync("foo");
+        System.out.println("#### TEST CompletableFuture ####");
 
         // TEST CompletableFuture
 
