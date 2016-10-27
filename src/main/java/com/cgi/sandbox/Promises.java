@@ -1,5 +1,8 @@
 package com.cgi.sandbox;
 
+import com.cgi.sandbox.pojo.Person;
+
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import static java.lang.Thread.sleep;
@@ -26,6 +29,34 @@ public class Promises {
                 throw new IllegalArgumentException("Promise rejected !");
             return "Promise" + param;
         });
+    }
+
+    public static CompletableFuture<Optional<Person>> findNameOption(String param) {
+        return CompletableFuture.supplyAsync(() -> {
+            //...long running...
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                throw new IllegalStateException("task interrupted", e);
+            }
+            if (param == null)
+                throw new IllegalArgumentException("Promise rejected !");
+            if("steve".equalsIgnoreCase(param))
+                return Optional.empty();
+            return Optional.ofNullable(new Person(param, "d"));
+        });
+    }
+
+    public static Optional<String> findRole(Person p) {
+        //...long running...
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            throw new IllegalStateException("task interrupted", e);
+        }
+        if (p == null)
+            throw new IllegalArgumentException("Promise rejected !");
+        return Optional.ofNullable("ADMIN");
     }
 
     public static void main(String[] args) {
@@ -68,11 +99,20 @@ public class Promises {
                 })
                 .thenAccept(System.out::println);
 
+        // thenApply takes a Function which accepts a value, but also return one.
+        // flatMap Optional : If a value is present, apply the provided Optional-bearing mapping function to it,
+        // return that result, otherwise return an empty Optional.
+        // this test will do nothing with "steve" param, otherwise it will print "Optional[ADMIN]"
+        findNameOption("keuss")
+                .thenApply(maybep ->
+                        maybep.flatMap(p ->
+                                findRole(p))).thenAccept(System.out::println);
+
         System.out.println("Non blocking ...");
 
 
         try {
-            Thread.sleep(10000);
+            Thread.sleep(18000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
