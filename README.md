@@ -25,7 +25,7 @@ Examples inspired from :
 
 ## Some doc from Oracle (MOOC) which examines Functional Programming in Java with Lambdas and Streams
 
-[MOOC](https://apexapps.oracle.com/pls/apex/f?p=44785:141:114096047542965::NO::P141_PAGE_ID,P141_SECTION_ID,P141_PREV_PAGE,P141_EVENT_ID:478,3496,,)
+[MOOC (must be logged)](https://apexapps.oracle.com/pls/apex/f?p=44785:141:114096047542965::NO::P141_PAGE_ID,P141_SECTION_ID,P141_PREV_PAGE,P141_EVENT_ID:478,3496,,)
 
  - Lesson 1: Lambda Expressions (pdf Lesson-1*)
  - Lesson 2: Introduction to the Streams API (pdf Lesson-2*)
