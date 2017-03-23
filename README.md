@@ -1,12 +1,12 @@
 # java8-sandbox
 
-## some java8 news features test
+## Some java8 news features test
 
 Examples inspired from :
 
  - [https://github.com/winterbe/java8-tutorial](https://github.com/winterbe/java8-tutorial "https://github.com/winterbe/java8-tutorial")
 
-## links
+## Links
 
  - [https://www.javacodegeeks.com/2014/05/java-8-features-tutorial.html](https://www.javacodegeeks.com/2014/05/java-8-features-tutorial.html "https://www.javacodegeeks.com/2014/05/java-8-features-tutorial.html")
  - [http://winterbe.com/posts/2014/03/16/java-8-tutorial/](http://winterbe.com/posts/2014/03/16/java-8-tutorial/ "http://winterbe.com/posts/2014/03/16/java-8-tutorial/")
@@ -23,7 +23,12 @@ Examples inspired from :
  - [https://github.com/keuss/java8-sandbox/blob/master/src/main/java/com/cgi/sandbox/Promises.java](https://github.com/keuss/java8-sandbox/blob/master/src/main/java/com/cgi/sandbox/Promises.java "Futures & Promises")
  - [https://github.com/keuss/java8-sandbox/blob/master/src/main/java/com/cgi/sandbox/xml/TestXMLtoJson.md](https://github.com/keuss/java8-sandbox/blob/master/src/main/java/com/cgi/sandbox/xml/TestXMLtoJson.md "XML")
 
+## Some doc from Oracle (MOOC) which examines Functional Programming in Java with Lambdas and Streams
 
-## jdeps
+ - Lesson 1: Lambda Expressions (pdf Lesson-1*)
+ - Lesson 2: Introduction to the Streams API (pdf Lesson-2*)
+ - Lesson 3: Advanced Lambda and Stream Concepts (pdf Lesson-3*)
+
+## Display jdeps
 
 ![alt tag](./Capture.PNG)
