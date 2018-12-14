@@ -17,6 +17,7 @@ public class MapTest {
             stringMap.putIfAbsent(i, "val " + i);
         }
 
+        // Without refactoring (see printerMap) :
         //(key, val) -> System.out.println(key + "=>" +val);
         /*stringMap.forEach((key, val) -> {
                 System.out.println("Autre traitement ...");
